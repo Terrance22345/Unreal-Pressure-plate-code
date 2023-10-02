@@ -1,0 +1,79 @@
+//Code for the pressure plate system in C++
+void APressurePlateActor::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    // Start timer when player steps on the pressure plate
+    StartTimer();
+}
+
+void APressurePlateActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+    // Stop timer when player steps off the pressure plate
+    StopTimer();
+}
+
+
+//Code for the pressure plate timer in c++
+FTimerHandle TimerHandle;
+float TimerValue;
+
+void APressurePlateActor::StartTimer()
+{
+    GetWorldTimerManager().SetTimer(TimerHandle, this, &APressurePlateActor::UpdateTimer, 1.0f, true);
+}
+
+void APressurePlateActor::StopTimer()
+{
+    GetWorldTimerManager().ClearTimer(TimerHandle);
+}
+
+void APressurePlateActor::UpdateTimer()
+{
+    // Implement logic to update timer value every second
+    TimerValue += 1.0f;
+}
+FTimerHandle TimerHandle;
+float TimerValue;
+
+void APressurePlateActor::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+    // Start timer when player steps on the pressure plate
+    StartTimer();
+}
+
+void APressurePlateActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+{
+    // Stop timer when player steps off the pressure plate
+    StopTimer();
+}
+
+
+
+
+// This code checks to see if player is on the plate
+void APressurePlateActor::StartTimer()
+{
+    GetWorldTimerManager().SetTimer(TimerHandle, this, &APressurePlateActor::UpdateTimer, 1.0f, true);
+}
+
+void APressurePlateActor::StopTimer()
+{
+    GetWorldTimerManager().ClearTimer(TimerHandle);
+}
+
+void APressurePlateActor::UpdateTimer()
+{
+    // Implement logic to update timer value every second
+    TimerValue += 1.0f;
+
+    // Check if the player is not on the pressure plate and decrease the timer
+    if (!IsPlayerOnPressurePlate())
+    {
+        TimerValue -= 1.0f; // Decrease timer by 1 second
+        TimerValue = FMath::Max(TimerValue, 0.0f); // Ensure timer doesn't go below zero
+    }
+}
+
+bool APressurePlateActor::IsPlayerOnPressurePlate()
+{
+  
+}
